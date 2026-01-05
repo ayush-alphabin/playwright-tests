@@ -45,7 +45,7 @@ jobs:
         run: |
           echo "GitHub run attempt: ${{ github.run_attempt }}"
 
-          # Case 1: Re-run failed jobs → run only failed tests, WITH sharding
+          # Case 1: Re-run failed jobs → run only failed tests
           if [[ "${{ github.run_attempt }}" -gt 1 ]]; then
             echo "Detected re-run. Executing only last failed tests via TestDino."
 
@@ -59,10 +59,9 @@ jobs:
 
             echo "Running failed tests WITH sharding:"
             echo "$EXTRA_PW_FLAGS"
-            echo "--shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }}"
 
             # IMPORTANT: preserve quotes
-            eval "npx playwright test $EXTRA_PW_FLAGS --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }}"
+            eval "npx playwright test $EXTRA_PW_FLAGS"
             exit 0
           fi
 
