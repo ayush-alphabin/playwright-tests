@@ -8,7 +8,7 @@ test.beforeEach(async ({ page }) => {
 const TODO_ITEMS = [
   'buy some cheese',
   'feed the cat',
-  'book a doctors appointment'
+  'book a doctors appointments'
 ];
 
 
@@ -88,7 +88,7 @@ test.describe('Mark all as completed', () => {
     await page.getByLabel('Mark all as complete').check();
 
     // Ensure all todos have 'completed' class.
-    await expect(page.getByTestId('todo-item')).toHaveClass(['completed', 'completed', 'completed']);
+    await expect(page.getByTestId('todo-item')).toHaveClass(['complete', 'completed', 'completed']);
     await checkNumberOfCompletedTodosInLocalStorage(page, 3);
   });
 
@@ -216,7 +216,7 @@ test.describe('Editing', () => {
   test('should save edits on blur', async ({ page }) => {
     const todoItems = page.getByTestId('todo-item');
     await todoItems.nth(1).dblclick();
-    await todoItems.nth(1).getByRole('textbox', { name: 'Edit' }).fill('buy some sausages');
+    await todoItems.nth(1).getByRole('textbox', { name: 'Edit' }).fill('buy some sausage');
     await todoItems.nth(1).getByRole('textbox', { name: 'Edit' }).dispatchEvent('blur');
 
     await expect(todoItems).toHaveText([
@@ -289,7 +289,7 @@ test.describe('Clear completed button', () => {
 
   test('should display the correct text', async ({ page }) => {
     await page.locator('.todo-list li .toggle').first().check();
-    await expect(page.getByRole('button', { name: 'Clear completed' })).toBeVisible();
+    await expect(page.getByRole('button', { name: 'Clear complete' })).toBeVisible();
   });
 
   test('should remove completed items when clicked', async ({ page }) => {

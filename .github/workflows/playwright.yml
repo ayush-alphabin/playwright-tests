@@ -1,0 +1,27 @@
+name: Playwright Tests
+
+on:
+  push:
+
+jobs:
+  test:
+    timeout-minutes: 60
+    runs-on: ubuntu-latest
+    container:
+      image: mcr.microsoft.com/playwright:v1.57.0-jammy
+    steps:
+    - uses: actions/checkout@v4
+    
+    - uses: actions/setup-node@v4
+      with:
+        node-version: 20
+    
+    - name: Install dependencies
+      run: |
+        npm install
+        npm install testdino-playwright-1.0.0.tgz
+    
+    - name: Run Playwright tests
+      run: npx playwright test
+      env:
+        HOME: /root
