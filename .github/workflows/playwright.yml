@@ -19,6 +19,8 @@ jobs:
         node-version: 20
     
     - name: Install dependencies
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
         npm install
         npm install testdino-playwright-1.0.0.tgz
