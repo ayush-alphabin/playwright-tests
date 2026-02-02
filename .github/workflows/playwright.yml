@@ -16,7 +16,9 @@ jobs:
         shardIndex: [1, 2, 3]
         shardTotal: [3]
     steps:
-    - uses: actions/checkout@v4                                                                                                                                                                                        
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0                                                                                                                                                                              
     
     - uses: actions/setup-node@v4
       with:
