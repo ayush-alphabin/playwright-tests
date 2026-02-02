@@ -11,8 +11,8 @@ module.exports = defineConfig({
   workers: process.env.CI ? 3 : 5,
   reporter: [
     ['@testdino/playwright', {
-      serverUrl: 'https://staging-api.testdino.com',
-      token: 'trx_staging_4aa7ba96f02c8c0339159af527d7380f5a9ae051258358495bd71cc0bc1d7b37',
+      serverUrl: 'https://malamute-noble-miserably.ngrok-free.app',
+      token: 'trx_development_bbfbcff0ec0c5b835f37c2434345fcf9ed9d29d925eab61a3633787931747a1b',
       debug: true,
       artifacts: false
     }]
