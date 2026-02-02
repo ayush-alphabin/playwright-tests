@@ -19,6 +19,11 @@ class AuthService {
     }
     return { success: true, token: `token_${username}_${Date.now()}` };
   }
+  
+  logout(token) {
+    // Invalidate token
+    return { success: true, message: 'Logged out successfully' };
+  }
 }
 
 module.exports = AuthService;
