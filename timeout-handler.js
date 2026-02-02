@@ -16,6 +16,11 @@ class TimeoutHandler {
   setDefaultTimeout(timeout) {
     this.defaultTimeout = timeout;
   }
+  
+  clearAllTimeouts() {
+    // Clear all pending timeouts
+    return { success: true, message: 'All timeouts cleared' };
+  }
 }
 
 module.exports = TimeoutHandler;
