@@ -12,7 +12,7 @@ module.exports = defineConfig({
   reporter: [
     ['@testdino/playwright', {
       serverUrl: 'https://staging-api.testdino.com',
-      token: 'trx_staging_6a3e71ecbccf1006c5f3aef5ea9540aef781e51d0ce1367135b469e44b503c96',
+      token: 'trx_staging_4aa7ba96f02c8c0339159af527d7380f5a9ae051258358495bd71cc0bc1d7b37',
       debug: true,
       artifacts: false
     }]
