@@ -2,32 +2,33 @@ name: Playwright Tests
 
 on:
   push:
-  pull_request:
 
 jobs:
   test:
-    timeout-minutes: 60
+    timeout-minutes: 15
     runs-on: ubuntu-latest
     container:
-      image: mcr.microsoft.com/playwright:v1.57.0-jammy
+      image: mcr.microsoft.com/playwright:v1.58.2-noble
+      options: --user root
     strategy:
       fail-fast: false
       matrix:
-        shardIndex: [1, 2, 3]
-        shardTotal: [3]
+        shard: [1, 2, 3, 4, 5]
+    env:
+      TESTDINO_TOKEN: ${{ secrets.TESTDINO_TOKEN }}
+      TESTDINO_SERVER_URL: ${{ secrets.TESTDINO_SERVER_URL }}
+      TESTDINO_CI_RUN_ID: ${{ github.run_id }}-${{ github.run_attempt }}
     steps:
-    - uses: actions/checkout@v4                                                                                                                                                                                        
-    
-    - uses: actions/setup-node@v4
-      with:
-        node-version: 20
-    
-    - name: Install dependencies
-      run: |
-        npm install
-        npm install testdino-playwright-1.0.0.tgz
-    
-    - name: Run Playwright tests
-      run: npx playwright test --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }}
-      env:
-        HOME: /root
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 22
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run Playwright tests
+        run: npx tdpw test -t $TESTDINO_TOKEN --server-url $TESTDINO_SERVER_URL --ci-run-id $TESTDINO_CI_RUN_ID --shard=${{ matrix.shard }}/5 --workers=7
