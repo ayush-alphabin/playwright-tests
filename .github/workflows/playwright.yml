@@ -15,7 +15,7 @@ jobs:
       matrix:
         shard: [1, 2, 3, 4, 5]
     env:
-      TESTDINO_TOKEN: trx_staging_30db887ecf87e0749435f66f8e9842856160dbbba240769e819f179d42bbc679
+      TESTDINO_TOKEN: trx_staging_8bbf085103d7e523b8ff2611bb9d3ed60454ab98a2ccbf780d8d2f417ca5a57d
       TESTDINO_SERVER_URL: https://stg-api.testdino.com
       TESTDINO_CI_RUN_ID: ${{ github.run_id }}-${{ github.run_attempt }}
     steps:
