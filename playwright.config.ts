@@ -27,7 +27,7 @@ export default defineConfig({
     [
       '@testdino/playwright',
       {
-        token: process.env.TESTDINO_TOKEN || 'trx_staging_e3cef70bdf4748327f1a9fa2b12e56b9cb3260f29819651cf69bf52a42368047',
+        token: process.env.TESTDINO_TOKEN,
         serverUrl: process.env.TESTDINO_SERVER_URL || 'https://stg-api.testdino.com',
         debug: true,
         artifacts: true,
