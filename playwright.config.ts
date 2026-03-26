@@ -24,16 +24,16 @@ export default defineConfig({
     ['html', { outputFolder: 'playwright-report', open: 'never' }],
     ['json', { outputFile: './playwright-report/report.json' }],
 
-    [
-      '@testdino/playwright',
-      {
-        token: process.env.TESTDINO_TOKEN,
-        serverUrl: process.env.TESTDINO_SERVER_URL || 'https://stg-api.testdino.com',
-        debug: true,
-        artifacts: true,
-        ciRunId: `gh-${process.env.GITHUB_RUN_ID}-${process.env.GITHUB_RUN_ATTEMPT}`
-      },
-    ],
+    // [
+    //   '@testdino/playwright',
+    //   {
+    //     token: process.env.TESTDINO_TOKEN,
+    //     serverUrl: process.env.TESTDINO_SERVER_URL || 'https://stg-api.testdino.com',
+    //     debug: true,
+    //     artifacts: true,
+    //     ciRunId: `gh-${process.env.GITHUB_RUN_ID}-${process.env.GITHUB_RUN_ATTEMPT}`
+    //   },
+    // ],
   ],
 
   use: {
