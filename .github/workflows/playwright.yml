@@ -15,8 +15,9 @@ jobs:
       matrix:
         shard: [1, 2, 3, 4, 5]
     env:
-      TESTDINO_TOKEN: trx_staging_5a0d04ee7b60bc4fd4461d3ce695f2522143a1b6303ab306990f309785d0db78
-      TESTDINO_SERVER_URL: https://stg-api.testdino.com
+      # TESTDINO_TOKEN: trx_staging_5a0d04ee7b60bc4fd4461d3ce695f2522143a1b6303ab306990f309785d0db78
+      TESTDINO_TOKEN: trx_development_c4587270df98d118f31062c47151cc62b969a768cb9d7ccaa8405ee225f579ad
+      TESTDINO_SERVER_URL: https://f187-2401-4900-8899-8576-4525-7622-3010-d361.ngrok-free.app
       TESTDINO_CI_RUN_ID: gh-${{ github.run_id }}-${{ github.run_attempt }}
     steps:
       - uses: actions/checkout@v6
