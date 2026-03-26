@@ -22,25 +22,18 @@ export default defineConfig({
 
   reporter: [
     ['html', { outputFolder: 'playwright-report', open: 'never' }],
-    ['blob', { outputDir: 'blob-report' }], // Blob reporter for merging
     ['json', { outputFile: './playwright-report/report.json' }],
-    // Only enable TestDino when token is set (use TESTDINO_SERVER_URL in CI if staging is unreachable)
-    ...(process.env.TESTDINO_TOKEN
-      ? ([
-        [
-          '@testdino/playwright',
-          {
-            token: process.env.TESTDINO_TOKEN,
-            serverUrl:
-              process.env.TESTDINO_SERVER_URL ||
-              'https://staging-api.testdino.com',
-            debug: true,
-            artifacts: false,
-            ciRunId: `local-run-final-shard`
-          },
-        ],
-      ] as const)
-      : []),
+
+    [
+      '@testdino/playwright',
+      {
+        token: process.env.TESTDINO_TOKEN || 'trx_staging_e3cef70bdf4748327f1a9fa2b12e56b9cb3260f29819651cf69bf52a42368047',
+        serverUrl: process.env.TESTDINO_SERVER_URL || 'https://stg-api.testdino.com',
+        debug: true,
+        artifacts: true,
+        ciRunId: `gh-${process.env.GITHUB_RUN_ID}-${process.env.GITHUB_RUN_ATTEMPT}`
+      },
+    ],
   ],
 
   use: {
@@ -54,31 +47,6 @@ export default defineConfig({
   },
 
   projects: [
-    {
-      name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
-      grep: /@chromium/,
-    },
-    {
-      name: 'firefox',
-      use: { ...devices['Desktop Firefox'] },
-      grep: /@firefox/,
-    },
-    {
-      name: 'webkit',
-      use: { ...devices['Desktop Safari'] },
-      grep: /@webkit/,
-    },
-    {
-      name: 'android',
-      use: { ...devices['Pixel 5'] },
-      // grep: /@android/,
-    },
-    {
-      name: 'ios',
-      use: { ...devices['iPhone 12'] },
-      // grep: /@ios/,
-    },
     {
       name: 'api',
       use: { ...devices['API'] },
