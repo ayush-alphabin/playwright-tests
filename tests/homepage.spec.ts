@@ -157,4 +157,9 @@ test.describe('Homepage', () => {
     await page.waitForTimeout(randomWait());
     expect(true).toBe(true);
   });
+
+  test('should timeout waiting for slow API response', { timeout: 5 * 60 * 1000 }, async ({ page }) => {
+    await page.waitForTimeout(6 * 60 * 1000);
+    expect(true).toBe(true);
+  });
 });
