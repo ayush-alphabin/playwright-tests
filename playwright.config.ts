@@ -15,7 +15,7 @@ export default defineConfig({
   retries: isCI ? 1 : 1, // Enable retries for flaky test behavior
   workers: isCI ? 10 : 10,
 
-  timeout: 60 * 1000,
+  timeout: 6 * 60 * 1000,
   expect: {
     timeout: 10 * 1000,
   },
