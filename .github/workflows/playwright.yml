@@ -17,7 +17,7 @@ jobs:
     env:
       # TESTDINO_TOKEN: trx_staging_5a0d04ee7b60bc4fd4461d3ce695f2522143a1b6303ab306990f309785d0db78
       TESTDINO_TOKEN: trx_development_e2f6ef999ced27ec8b941140557afceacdfe8d6317d6eca7762c79eb5f315a98
-      TESTDINO_SERVER_URL: https://7893-2401-4900-8899-8576-4525-7622-3010-d361.ngrok-free.app
+      TESTDINO_SERVER_URL: https://8e9e-2401-4900-8899-8576-fdd7-593b-b7ce-81d.ngrok-free.app
       TESTDINO_CI_RUN_ID: gh-${{ github.run_id }}-${{ github.run_attempt }}
     steps:
       - uses: actions/checkout@v6
