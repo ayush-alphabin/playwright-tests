@@ -2,32 +2,34 @@ name: Playwright Tests
 
 on:
   push:
-  pull_request:
 
 jobs:
   test:
-    timeout-minutes: 60
+    timeout-minutes: 15
     runs-on: ubuntu-latest
     container:
-      image: mcr.microsoft.com/playwright:v1.57.0-jammy
+      image: mcr.microsoft.com/playwright:v1.58.2-noble
+      options: --user root
     strategy:
       fail-fast: false
       matrix:
-        shardIndex: [1, 2, 3]
-        shardTotal: [3]
+        shard: [1, 2, 3, 4, 5]
+    env:
+      # TESTDINO_TOKEN: trx_staging_5a0d04ee7b60bc4fd4461d3ce695f2522143a1b6303ab306990f309785d0db78
+      TESTDINO_TOKEN: trx_development_e2f6ef999ced27ec8b941140557afceacdfe8d6317d6eca7762c79eb5f315a98
+      TESTDINO_SERVER_URL: https://8e9e-2401-4900-8899-8576-fdd7-593b-b7ce-81d.ngrok-free.app
+      TESTDINO_CI_RUN_ID: gh-${{ github.run_id }}-${{ github.run_attempt }}
     steps:
-    - uses: actions/checkout@v4                                                                                                                                                                                        
-    
-    - uses: actions/setup-node@v4
-      with:
-        node-version: 20
-    
-    - name: Install dependencies
-      run: |
-        npm install
-        npm install testdino-playwright-1.0.0.tgz
-    
-    - name: Run Playwright tests
-      run: npx playwright test --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }}
-      env:
-        HOME: /root
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 22
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run Playwright tests
+        run: npx tdpw test -t $TESTDINO_TOKEN --server-url $TESTDINO_SERVER_URL --ci-run-id $TESTDINO_CI_RUN_ID --shard=${{ matrix.shard }}/5 --workers=7 --debug
