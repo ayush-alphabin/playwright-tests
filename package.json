@@ -3,6 +3,12 @@
   "version": "1.0.0",
   "scripts": {
     "test": "npx playwright test",
+    "test:coverage": "npx playwright test --config playwright.coverage.config.ts",
+    "test:coverage:stress": "npx playwright test --config playwright.coverage.config.ts tests/coverage/stress.spec.ts",
+    "test:coverage:shard": "npx playwright test --config playwright.coverage.config.ts --shard",
+    "app:dev": "cd app && npx vite --port 5199",
+    "app:install": "cd app && npm install",
+    "generate:modules": "bash scripts/generate-modules.sh",
     "test:shard1": "npx playwright test tests/shard-01.spec.ts",
     "test:shard2": "npx playwright test tests/shard-02.spec.ts",
     "test:shard3": "npx playwright test tests/shard-03.spec.ts",
@@ -19,6 +25,7 @@
     "@types/node": "^25.3.5"
   },
   "dependencies": {
-    "@testdino/playwright": "file:testdino-playwright-1.0.11.tgz"
+    "@testdino/playwright": "file:testdino-playwright-1.0.11.tgz",
+    "tdpw": "file:../testdino-cli/tdpw-1.0.34.tgz"
   }
 }
