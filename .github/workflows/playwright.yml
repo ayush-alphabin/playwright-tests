@@ -10,22 +10,19 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: mcr.microsoft.com/playwright:v1.58.2-jammy
-    # strategy:
-    #   fail-fast: false
-    #   matrix:
-    #     shardIndex: [1, 2, 3]
-    #     shardTotal: [3]
 
     steps:
     - uses: actions/checkout@v6                                                                                                                                                                                        
     
     - uses: actions/setup-node@v6
       with:
-        node-version: 20
+        node-version: 22
     
     - name: Install dependencies
       run: |
         npm install
+        # Force runtime tdpw (avoid @testdino/playwright's bundled binary)
+        npm install --no-save tdpw@1.0.35
     
     - name: Run Playwright tests
       run: npx playwright test
@@ -35,4 +32,4 @@ jobs:
     - name: Upload test results
       if: ${{ always() }}
       run:
-        npx tdpw upload ./playwright-report -t trx_production_21c121199775c205efec0b4a62cd80232bb43f1f6ea891d1d34877259a6e8180 --upload-traces --upload-images --upload-videos
+        npx --no-install tdpw upload ./playwright-report -t trx_production_21c121199775c205efec0b4a62cd80232bb43f1f6ea891d1d34877259a6e8180 --upload-traces --upload-images --upload-videos
