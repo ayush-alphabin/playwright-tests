@@ -9,25 +9,29 @@ jobs:
     timeout-minutes: 60
     runs-on: ubuntu-latest
     container:
-      image: mcr.microsoft.com/playwright:v1.57.0-jammy
-    strategy:
-      fail-fast: false
-      matrix:
-        shardIndex: [1, 2, 3]
-        shardTotal: [3]
-    steps:
-    - uses: actions/checkout@v4                                                                                                                                                                                        
+      image: mcr.microsoft.com/playwright:v1.58.2-jammy
+    # strategy:
+    #   fail-fast: false
+    #   matrix:
+    #     shardIndex: [1, 2, 3]
+    #     shardTotal: [3]
     
-    - uses: actions/setup-node@v4
+    steps:
+    - uses: actions/checkout@v6                                                                                                                                                                                        
+    
+    - uses: actions/setup-node@v6
       with:
         node-version: 20
     
     - name: Install dependencies
       run: |
         npm install
-        npm install testdino-playwright-1.0.0.tgz
     
     - name: Run Playwright tests
-      run: npx playwright test --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }}
+      run: npx playwright test
       env:
         HOME: /root
+
+    - name: Upload test results
+      run:
+        npx tdpw upload ./playwright-report -t trx_production_21c121199775c205efec0b4a62cd80232bb43f1f6ea891d1d34877259a6e8180 --upload-traces --upload-images --upload-videos
