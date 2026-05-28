@@ -10,9 +10,19 @@ module.exports = defineConfig({
   timeout: process.env.CI ? 10000 : 5000,
   workers: process.env.CI ? 3 : 5,
   reporter: [
+    ['list'],
+    ['html', { outputFolder: 'playwright-report', open: 'never' }],
+    ['json', { outputFile: './playwright-report/report.json' }],
     ['@testdino/playwright', {
-      serverUrl: 'https://staging-api.testdino.com',
-      token: 'trx_staging_4aa7ba96f02c8c0339159af527d7380f5a9ae051258358495bd71cc0bc1d7b37',
+      serverUrl: process.env.TESTDINO_SERVER_URL || 'http://localhost:3005',
+      token: process.env.TESTDINO_TOKEN,
+      // ciRunId must be stable across shards of the same logical run, and
+      // unique between different runs. The orchestrator sets TESTDINO_CI_RUN_ID
+      // explicitly per logical run (e.g. main-r1, main-r2-shard, …); the
+      // fallback is timestamp+pid which is fine for ad-hoc local runs but
+      // would diverge across shards.
+      ciRunId: process.env.TESTDINO_CI_RUN_ID
+        || `ci-run-${new Date().toISOString().slice(0,19).replace(/[:T-]/g,'')}-${process.pid}`,
       debug: true,
       artifacts: false
     }]
