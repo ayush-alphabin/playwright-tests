@@ -13,12 +13,13 @@ module.exports = defineConfig({
     ['list'],
     ['html', { outputFolder: 'playwright-report', open: 'never' }],
     ['json', { outputFile: './playwright-report/report.json' }],
-    // ['@testdino/playwright', {
-    //   serverUrl: 'https://staging-api.testdino.com',
-    //   token: 'trx_staging_4aa7ba96f02c8c0339159af527d7380f5a9ae051258358495bd71cc0bc1d7b37',
-    //   debug: true,
-    //   artifacts: false
-    // }]
+    ['@testdino/playwright', {
+      serverUrl: process.env.TESTDINO_SERVER_URL || 'http://localhost:3005',
+      token: process.env.TESTDINO_TOKEN,
+      ciRunId: `ci-run-${new Date().toISOString().slice(0,10)}`,
+      debug: true,
+      artifacts: false
+    }]
   ],
   use: {
     trace: "retry-with-trace",
