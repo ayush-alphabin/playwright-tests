@@ -7,7 +7,7 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "@testdino/playwright": "^1.0.10",
+    "@testdino/playwright": "file:testdino-playwright-1.1.0.tgz",
     "dotenv": "^16.6.1",
     "playwright": "^1.58.2"
   },
