@@ -16,7 +16,13 @@ module.exports = defineConfig({
     ['@testdino/playwright', {
       serverUrl: process.env.TESTDINO_SERVER_URL || 'http://localhost:3005',
       token: process.env.TESTDINO_TOKEN,
-      ciRunId: `ci-run-${new Date().toISOString().slice(0,10)}`,
+      // ciRunId must be stable across shards of the same logical run, and
+      // unique between different runs. The orchestrator sets TESTDINO_CI_RUN_ID
+      // explicitly per logical run (e.g. main-r1, main-r2-shard, …); the
+      // fallback is timestamp+pid which is fine for ad-hoc local runs but
+      // would diverge across shards.
+      ciRunId: process.env.TESTDINO_CI_RUN_ID
+        || `ci-run-${new Date().toISOString().slice(0,19).replace(/[:T-]/g,'')}-${process.pid}`,
       debug: true,
       artifacts: false
     }]
